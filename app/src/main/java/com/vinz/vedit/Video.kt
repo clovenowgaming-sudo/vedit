@@ -20,6 +20,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.media3.common.Effect
+import com.google.common.collect.ImmutableList
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.audio.AudioProcessor
@@ -79,7 +80,7 @@ class VideoEditorActivity : Activity() {
     private var tPos = 1
 
     private val filterNames = listOf(
-        "Original", "B&W", "Invert", "Vivid", "Warm", "Cool", "Vintage", "Fade", "Dramatic", "Cyber", "Sunset"
+        "Original", "B&W", "Matte", "Vivid", "Warm", "Cool", "Vintage", "Fade", "Dramatic", "Cyber", "Sunset"
     )
     private val speedNames = listOf("0.25x", "0.5x", "0.75x", "1x", "1.5x", "2x", "3x", "4x")
     private val speedVals = floatArrayOf(0.25f, 0.5f, 0.75f, 1f, 1.5f, 2f, 3f, 4f)
@@ -207,7 +208,7 @@ class VideoEditorActivity : Activity() {
         }
         when (filter) {
             1 -> l.add(RgbFilter.createGrayscaleFilter())
-            2 -> l.add(RgbFilter.createInvertedColorsFilter())
+            2 -> { l.add(Contrast(-0.15f)); l.add(HslAdjustment.Builder().adjustSaturation(-20f).build()) }
             3 -> {
                 l.add(HslAdjustment.Builder().adjustSaturation(45f).build())
                 l.add(Contrast(0.15f))
@@ -253,7 +254,7 @@ class VideoEditorActivity : Activity() {
             val y = when (tPos) { 0 -> 0.8f; 1 -> 0f; else -> -0.8f }
             val settings = OverlaySettings.Builder().setBackgroundFrameAnchor(0f, y).build()
             val ov = TextOverlay.createStaticTextOverlay(sp, settings)
-            l.add(OverlayEffect(listOf<TextureOverlay>(ov)))
+            l.add(OverlayEffect(ImmutableList.of<TextureOverlay>(ov)))
         }
         return l
     }
@@ -288,7 +289,7 @@ class VideoEditorActivity : Activity() {
     )
 
     private fun speedPanel(): View = col(
-        chips(speedNames, speedVals.indexOf(speed).coerceAtLeast(0)) {
+        chips(speedNames, speedVals.toList().indexOf(speed).coerceAtLeast(0)) {
             speed = speedVals[it]
             player.setPlaybackSpeed(speed)
         }
