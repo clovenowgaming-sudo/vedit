@@ -104,7 +104,7 @@ object Imaging {
         .393f, .769f, .189f, 0f, 0f, .349f, .686f, .168f, 0f, 0f, .272f, .534f, .131f, 0f, 0f, 0f, 0f, 0f, 1f, 0f
     )
 
-    private val presets: List<FloatArray> by lazy {
+    val presets: List<FloatArray> by lazy {
         listOf(
             idm(),
             mul(satm(1.5f), conm(1.1f)),

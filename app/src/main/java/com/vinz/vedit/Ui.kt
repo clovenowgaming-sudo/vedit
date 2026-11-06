@@ -23,12 +23,12 @@ const val MATCH = ViewGroup.LayoutParams.MATCH_PARENT
 const val WRAP = ViewGroup.LayoutParams.WRAP_CONTENT
 
 object T {
-    val bg = Color.parseColor("#0B0B0D")
-    val panel = Color.parseColor("#151518")
-    val card = Color.parseColor("#232328")
-    val accent = Color.parseColor("#00E5FF")
+    val bg = Color.parseColor("#000000")
+    val panel = Color.parseColor("#0E0E0E")
+    val card = Color.parseColor("#1F1F1F")
+    val accent = Color.parseColor("#FFFFFF")
     val text = Color.WHITE
-    val sub = Color.parseColor("#8E8E98")
+    val sub = Color.parseColor("#8A8A8A")
 }
 
 fun Context.dp(v: Int): Int = (v * resources.displayMetrics.density).toInt()
